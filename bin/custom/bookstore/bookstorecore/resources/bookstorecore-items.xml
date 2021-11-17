@@ -119,6 +119,7 @@
 		<!-- TODO exercise 2.1: define Book itemtype below -->
 		<itemtype code="Book" extends="Product" autocreate="true"
 			generate="true">
+			<deployment table="books" typecode="12346" />
 			<attributes>
 				<attribute qualifier="edition" type="java.lang.String">
 					<description>Book edition</description>
