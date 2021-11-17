@@ -38,7 +38,6 @@
     <extension name='bookstorecore'/>
     <extension name='bookstoreinitialdata'/>
     <extension name='bookstorefacades'/>
-    <extension name='bookstoretest'/>
     <extension name='bookstorestorefront'/>
     <extension name='bookstorecockpits'/>
 
