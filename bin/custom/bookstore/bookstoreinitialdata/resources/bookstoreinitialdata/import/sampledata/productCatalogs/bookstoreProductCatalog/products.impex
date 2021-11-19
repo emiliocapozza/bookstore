@@ -44,5 +44,5 @@ INSERT_UPDATE Book;code[unique=true];name[lang=$lang];$supercategories;unit(code
 ;8942944779;The Strange Case of the Disappearing hybris Website;mystery,audioCD;;;;true;10;8942944779;3338942944779;$lang;Pinniped
 INSERT_UPDATE Book;code[unique=true];name[lang=$lang];$supercategories;unit(code)[default=pieces];$approved;$catalogVersion;rentable;rewardPoints;ISBN10;ISBN13;language;publisher;authors(uid)
 ;1013742419;Withering Heights;drama,audioCD;;;;true;12;1013742419;3331013742419;$lang;hybris Classics Library;Dale Carnaby,Charlotte T.Bron
-UPDATE Book;code[unique=true];authors(uid)[mode=append]
-;1013742419;Autore Prova
+UPDATE Book;code[unique=true];$catalogVersion;authors(uid)[mode=append]
+;1013742419;;Autore Prova
