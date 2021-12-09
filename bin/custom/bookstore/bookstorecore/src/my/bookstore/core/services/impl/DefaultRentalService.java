@@ -5,6 +5,7 @@ import de.hybris.platform.core.model.user.CustomerModel;
 import java.util.List;
 
 import my.bookstore.core.daos.RentalDao;
+import my.bookstore.core.model.BookModel;
 import my.bookstore.core.model.RentalModel;
 import my.bookstore.core.services.RentalService;
 
@@ -28,6 +29,13 @@ public class DefaultRentalService implements RentalService
 		//se voglio utilizzare spring devo iniettarlo tramite costruttore o tramite setMethod--->setMethod:
 
 		return rentalDao.getActiveRentalsForCustomer(customer);
+	}
+
+	@Override
+	public List<BookModel> getMostRentedBooks(final int numberOfBooks)
+	{
+
+		return rentalDao.getMostRentedBooks(numberOfBooks);
 	}
 
 
