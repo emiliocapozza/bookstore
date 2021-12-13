@@ -32,7 +32,7 @@ public class DefaultRentalService implements RentalService
 	}
 
 	@Override
-	public List<BookModel> getMostRentedBooks(final int numberOfBooks)
+	public List<BookModel> getMostRentedBooks(final int numberOfBooks) throws IllegalArgumentException
 	{
 
 		return rentalDao.getMostRentedBooks(numberOfBooks);

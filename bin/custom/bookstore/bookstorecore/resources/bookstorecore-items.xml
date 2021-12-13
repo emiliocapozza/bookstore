@@ -134,6 +134,7 @@
 					<persistence type="property" />
 				</attribute>
 				<attribute qualifier="mostRented" type="java.lang.String">
+					<description>Field compiled if the book is one of the most rented books</description>
 					<modifiers optional="true" />
 					<persistence type="property" />
 				</attribute>

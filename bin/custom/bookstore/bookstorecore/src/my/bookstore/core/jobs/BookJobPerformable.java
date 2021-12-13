@@ -8,6 +8,7 @@ import de.hybris.platform.cronjob.enums.CronJobStatus;
 import de.hybris.platform.cronjob.model.CronJobModel;
 import de.hybris.platform.servicelayer.cronjob.AbstractJobPerformable;
 import de.hybris.platform.servicelayer.cronjob.PerformResult;
+import de.hybris.platform.servicelayer.exceptions.ModelSavingException;
 import de.hybris.platform.servicelayer.model.ModelService;
 
 import java.util.List;
@@ -25,26 +26,8 @@ import my.bookstore.core.services.RentalService;
 public class BookJobPerformable extends AbstractJobPerformable<CronJobModel>
 {
 	private static final Logger LOG = Logger.getLogger(BookJobPerformable.class);
-	RentalService rentalService;
-	ModelService modelService;
-
-	/**
-	 * @return the modelService
-	 */
-	public ModelService getModelService()
-	{
-		return modelService;
-	}
-
-	/**
-	 * @param modelService
-	 *           the modelService to set
-	 */
-	@Override
-	public void setModelService(final ModelService modelService)
-	{
-		this.modelService = modelService;
-	}
+	private RentalService rentalService;
+	private ModelService modelService;
 
 	/*
 	 * (non-Javadoc)
@@ -75,10 +58,17 @@ public class BookJobPerformable extends AbstractJobPerformable<CronJobModel>
 				}
 			}
 			return new PerformResult(CronJobResult.SUCCESS, CronJobStatus.FINISHED);
+			//in questo caso il return è fuori dall'else perchè sia nel caso di if che nel caso di else il risultato è success
+			//questo return è il risultato del try
 		}
-		catch (final Exception e)
+		catch (final IllegalArgumentException e)
 		{
-			LOG.error("An error occurs in rentalService or in modelService");
+			LOG.error("The argument of the method must be an integer bigger then zero");
+			return new PerformResult(CronJobResult.FAILURE, CronJobStatus.FINISHED);
+		}
+		catch (final ModelSavingException e)
+		{
+			LOG.error("An error occurs in saving book modify");
 			return new PerformResult(CronJobResult.FAILURE, CronJobStatus.FINISHED);
 		}
 	}
@@ -100,14 +90,36 @@ public class BookJobPerformable extends AbstractJobPerformable<CronJobModel>
 		this.rentalService = rentalService;
 	}
 
+	/**
+	 * @return the modelService
+	 */
+	public ModelService getModelService()
+	{
+		return modelService;
+	}
+
+	/**
+	 * @param modelService
+	 *           the modelService to set
+	 */
+
+	@Override
+	public void setModelService(final ModelService modelService)
+	{
+		this.modelService = modelService;
+	}
+	//in questo caso compare l'override perchè il metodo è già presente nella classe padre, quindi non c'è bisogno di iniettarlo.
+	//Lo lasciamo in questo esercizio per scopo puramente didattico.
+
+
 	/*--------------ImPex cronjob------------------------------------
 		 *
 		INSERT_UPDATE ServicelayerJob;code[unique=true];springId
 		;bookJobPerformable;bookJobPerformable
-		
+	
 		INSERT_UPDATE CronJob;code[unique=true];job(code);singleExecutable;sessionLanguage(isocode)
 		;myCronJob;bookJobPerformable;false;en
-		
+	
 		INSERT_UPDATE Trigger;cronjob(code)[unique=true];cronExpression
 		;myCronJob;0/60 0/10 * ? * * *
 	

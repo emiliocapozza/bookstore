@@ -481,5 +481,5 @@
 		<property name='rentalService' ref='rentalService'/>
 		<property name='modelService' ref='modelService'/>
 	</bean>
-
+<!-- si poteva anche non iniettare modelService in quanto è stato già fatto anche nella classe padre -->
 </beans>

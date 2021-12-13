@@ -76,34 +76,41 @@ public class DefaultRentalDao extends AbstractItemDao implements RentalDao
 	}
 
 	@Override
-	public List<BookModel> getMostRentedBooks(final int numberOfBooks)
+	public List<BookModel> getMostRentedBooks(final int numberOfBooks) throws IllegalArgumentException
 	{
+		if (numberOfBooks <= 0)
+		{
+			throw new IllegalArgumentException();
+		}
+		else
+		{
 
-		/*
-		 * Use the Flexible Search statement you created in exercise 5.4:
-		 *
-		 * SELECT {b.PK} FROM {Book as b JOIN Rental as r on {b.PK}={r.product}} GROUP BY {b.PK} ORDER BY
-		 * count({r.rentalId}) DESC
-		 */
+			/*
+			 * Use the Flexible Search statement you created in exercise 5.4:
+			 *
+			 * SELECT {b.PK} FROM {Book as b JOIN Rental as r on {b.PK}={r.product}} GROUP BY {b.PK} ORDER BY
+			 * count({r.rentalId}) DESC
+			 */
 
-		// ----------------------------------------------
-		// TODO exercise 5.5: Get the 5 most rented books
+			// ----------------------------------------------
+			// TODO exercise 5.5: Get the 5 most rented books
 
-		final String queryString = "SELECT {b." + BookModel.PK + "} FROM {" + BookModel._TYPECODE + " as b JOIN "
-				+ RentalModel._TYPECODE + " as r ON {b." + BookModel.PK + "}={r." + RentalModel.PRODUCT + "}}" + "GROUP BY {b."
-				+ BookModel.PK + "} ORDER BY count({r." + RentalModel.RENTALID + "}) DESC";
+			final String queryString = "SELECT {b." + BookModel.PK + "} FROM {" + BookModel._TYPECODE + " as b JOIN "
+					+ RentalModel._TYPECODE + " as r ON {b." + BookModel.PK + "}={r." + RentalModel.PRODUCT + "}}" + "GROUP BY {b."
+					+ BookModel.PK + "} ORDER BY count({r." + RentalModel.RENTALID + "}) DESC";
 
-		// 1. Compile a query from this string final
-		final FlexibleSearchQuery query = new FlexibleSearchQuery(queryString);
+			// 1. Compile a query from this string final
+			final FlexibleSearchQuery query = new FlexibleSearchQuery(queryString);
 
-		// 2. Add the query parameter // ...
-		query.setNeedTotal(true);
-		query.setCount(numberOfBooks);
-		query.setStart(0);
-		// 3. Execute
-		final SearchResult<BookModel> books = getFlexibleSearchService().search(query);
+			// 2. Add the query parameter // ...
+			query.setNeedTotal(true);
+			query.setCount(numberOfBooks);
+			query.setStart(0);
+			// 3. Execute
+			final SearchResult<BookModel> books = getFlexibleSearchService().search(query);
 
-		return books.getResult();
+			return books.getResult();
+		}
 	}
 
 }
