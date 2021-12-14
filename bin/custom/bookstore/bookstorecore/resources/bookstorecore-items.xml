@@ -60,8 +60,10 @@
 		<relation code="Book2AuthorRelation" generate="true"
 			localized="false">
 			<deployment table="BookAuthor" typecode="12345" />
-			<sourceElement type="Book" qualifier="books" cardinality="many" />
-			<targetElement type="User" qualifier="authors" cardinality="many" />
+			<sourceElement type="Book" qualifier="books"
+				cardinality="many" />
+			<targetElement type="User" qualifier="authors"
+				cardinality="many" />
 		</relation>
 
 	</relations>
@@ -128,6 +130,11 @@
 				</attribute>
 				<attribute qualifier="publication" type="java.lang.Integer">
 					<description>Book publication</description>
+					<modifiers optional="true" />
+					<persistence type="property" />
+				</attribute>
+				<attribute qualifier="mostRented" type="java.lang.String">
+					<description>Field compiled if the book is one of the most rented books</description>
 					<modifiers optional="true" />
 					<persistence type="property" />
 				</attribute>
