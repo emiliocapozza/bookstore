@@ -218,10 +218,10 @@
 
 
 	<bean id="mostRentedBookConverter" parent="abstractPopulatingConverter">
-		<property name="targetClass" value="my.bookstore.facades.product.data.BookData" />
+		<property name="targetClass" value="my.bookstore.facades.product.data.MostRentedBookData" />
 		<property name="populators">
 			<list>
-				<ref bean="bookstoreProductPopulator" />
+				<ref bean="mostRentedBooksProductPopulator" />
 			</list>
 		</property>
 	</bean>
@@ -229,5 +229,9 @@
 	<bean id="defaultBookFacade" class="my.bookstore.facades.book.impl.DefaultBookFacade">
 		<property name='rentalService' ref='rentalService' />
 		<property name='mostRentedBookConverter' ref='mostRentedBookConverter' />
+	</bean>
+	<!-- aggiunto populator -->
+	<bean id="mostRentedBooksProductPopulator"
+		class="my.bookstore.facades.populators.MostRentedBooksProductPopulator">
 	</bean>
 </beans>

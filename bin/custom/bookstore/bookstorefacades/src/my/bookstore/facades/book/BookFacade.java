@@ -5,7 +5,7 @@ package my.bookstore.facades.book;
 
 import java.util.List;
 
-import my.bookstore.facades.product.data.BookData;
+import my.bookstore.facades.product.data.MostRentedBookData;
 
 
 /**
@@ -14,6 +14,6 @@ import my.bookstore.facades.product.data.BookData;
  */
 public interface BookFacade
 {
-	public List<BookData> returnMostRentedBooks(int numberOfBooks);
+	public List<MostRentedBookData> returnMostRentedBooks(int numberOfBooks);
 
 }

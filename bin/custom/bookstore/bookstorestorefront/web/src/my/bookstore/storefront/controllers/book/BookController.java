@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import my.bookstore.facades.book.impl.DefaultBookFacade;
-import my.bookstore.facades.product.data.BookData;
+import my.bookstore.facades.product.data.MostRentedBookData;
 
 
 /**
@@ -30,7 +30,7 @@ public class BookController
 
 	@RequestMapping(value = "/mostRentedBook", method = RequestMethod.GET)
 	@ResponseBody
-	public List<BookData> printMostRentedBooks(@RequestParam(value = "numberOfBooks") final int numberOfBooks)
+	public List<MostRentedBookData> printMostRentedBooks(@RequestParam(value = "numberOfBooks") final int numberOfBooks)
 	{
 		//final int numberOfBooks = 5;
 		return defaultBookFacade.returnMostRentedBooks(numberOfBooks);

@@ -30,7 +30,14 @@
 		<property name="edition" type="String"></property>
 		<property name="publication" type="Integer"></property>
 	</bean>
-
+	
+	<!-- aggiunta nuovo bean per prova -->
+	<bean class="my.bookstore.facades.product.data.MostRentedBookData">
+		<property name="name" type="String"></property>
+		<property name="mostRented" type="String"></property>
+	</bean>
+	<!--fine-->
+	
 	<bean class="de.hybris.platform.commercefacades.user.data.CustomerData">
 		<property name="points" type="Integer" />
 	</bean>

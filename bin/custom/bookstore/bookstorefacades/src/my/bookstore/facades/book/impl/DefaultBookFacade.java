@@ -13,7 +13,7 @@ import org.apache.log4j.Logger;
 import my.bookstore.core.model.BookModel;
 import my.bookstore.core.services.RentalService;
 import my.bookstore.facades.book.BookFacade;
-import my.bookstore.facades.product.data.BookData;
+import my.bookstore.facades.product.data.MostRentedBookData;
 
 
 /**
@@ -24,7 +24,7 @@ public class DefaultBookFacade implements BookFacade
 {
 	private static final Logger LOG = Logger.getLogger(DefaultBookFacade.class);
 	private RentalService rentalService;
-	private Converter<BookModel, BookData> mostRentedBookConverter;
+	private Converter<BookModel, MostRentedBookData> mostRentedBookConverter;
 
 	/*
 	 * (non-Javadoc)
@@ -32,7 +32,7 @@ public class DefaultBookFacade implements BookFacade
 	 * @see my.bookstore.facades.book.BookFacade#getMostRentedBooks(int)
 	 */
 	@Override
-	public List<BookData> returnMostRentedBooks(final int numberOfBooks)
+	public List<MostRentedBookData> returnMostRentedBooks(final int numberOfBooks)
 	{
 		final List<BookModel> bookModelList = rentalService.getMostRentedBooks(numberOfBooks);
 
@@ -72,7 +72,7 @@ public class DefaultBookFacade implements BookFacade
 	/**
 	 * @return the mostRentedBookConverter
 	 */
-	public Converter<BookModel, BookData> getMostRentedBookConverter()
+	public Converter<BookModel, MostRentedBookData> getMostRentedBookConverter()
 	{
 		return mostRentedBookConverter;
 	}
@@ -81,7 +81,7 @@ public class DefaultBookFacade implements BookFacade
 	 * @param mostRentedBookConverter
 	 *           the mostRentedBookConverter to set
 	 */
-	public void setMostRentedBookConverter(final Converter<BookModel, BookData> mostRentedBookConverter)
+	public void setMostRentedBookConverter(final Converter<BookModel, MostRentedBookData> mostRentedBookConverter)
 	{
 		this.mostRentedBookConverter = mostRentedBookConverter;
 	}
