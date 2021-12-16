@@ -1,111 +1,107 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
- [y] hybris Platform
-
- Copyright (c) 2000-2015 hybris AG
- All rights reserved.
-
- This software is the confidential and proprietary information of hybris
- ("Confidential Information"). You shall not disclose such Confidential
- Information and shall use it only in accordance with the terms of the
- license agreement you entered into with hybris.
--->
+<!-- [y] hybris Platform Copyright (c) 2000-2015 hybris AG All rights reserved. 
+	This software is the confidential and proprietary information of hybris ("Confidential 
+	Information"). You shall not disclose such Confidential Information and shall 
+	use it only in accordance with the terms of the license agreement you entered 
+	into with hybris. -->
 
 <beans xmlns="http://www.springframework.org/schema/beans"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans
 		http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context
         http://www.springframework.org/schema/context/spring-context.xsd">
-		
-	<context:annotation-config/> 
 
-	<alias alias="simpleSuggestionFacade" name="defaultSimpleSuggestionFacade"/>
-	<bean id="defaultSimpleSuggestionFacade" class="my.bookstore.facades.suggestion.impl.DefaultSimpleSuggestionFacade" >
-		<property name="simpleSuggestionService" ref="simpleSuggestionService"/>
-		<property name="userService" ref="userService"/>
-		<property name="categoryService" ref="categoryService"/>
-		<property name="productService" ref="productService"/>
-		<property name="productConverter" ref="carouselProductConverter"/>
-		<property name="cartService" ref="cartService"/>
+	<context:annotation-config />
+
+	<alias alias="simpleSuggestionFacade" name="defaultSimpleSuggestionFacade" />
+	<bean id="defaultSimpleSuggestionFacade"
+		class="my.bookstore.facades.suggestion.impl.DefaultSimpleSuggestionFacade">
+		<property name="simpleSuggestionService" ref="simpleSuggestionService" />
+		<property name="userService" ref="userService" />
+		<property name="categoryService" ref="categoryService" />
+		<property name="productService" ref="productService" />
+		<property name="productConverter" ref="carouselProductConverter" />
+		<property name="cartService" ref="cartService" />
 	</bean>
-	
+
 	<bean id="carouselProductConverter" parent="defaultProductConverter">
 		<property name="populators">
 			<list merge="true">
-				<ref bean="productPricePopulator"/>
+				<ref bean="productPricePopulator" />
 			</list>
 		</property>
 	</bean>
 
-	<alias name="acceleratorVariantOptionDataConverter" alias="variantOptionDataConverter"/> 
+	<alias name="acceleratorVariantOptionDataConverter" alias="variantOptionDataConverter" />
 	<bean id="acceleratorVariantOptionDataConverter" parent="abstractPopulatingConverter">
-		<lookup-method name="createTarget" bean="variantOptionData"/>
+		<lookup-method name="createTarget" bean="variantOptionData" />
 		<property name="populators">
 			<list>
-				<ref bean="acceleratorVariantOptionDataPopulator"/>
+				<ref bean="acceleratorVariantOptionDataPopulator" />
 			</list>
 		</property>
 	</bean>
 
-	<alias name="defaultAcceleratorVariantOptionDataPopulator" alias="acceleratorVariantOptionDataPopulator"/>
-	<bean id="defaultAcceleratorVariantOptionDataPopulator"  class="my.bookstore.facades.populators.AcceleratorVariantOptionDataPopulator"
-	      parent="variantOptionDataPopulator" >
-		<property name="mediaService" ref="mediaService"/>
-		<property name="mediaContainerService" ref="mediaContainerService"/>
-		<property name="typeService" ref="typeService"/>
-		<property name="imageFormatMapping" ref="imageFormatMapping"/>
+	<alias name="defaultAcceleratorVariantOptionDataPopulator" alias="acceleratorVariantOptionDataPopulator" />
+	<bean id="defaultAcceleratorVariantOptionDataPopulator"
+		class="my.bookstore.facades.populators.AcceleratorVariantOptionDataPopulator"
+		parent="variantOptionDataPopulator">
+		<property name="mediaService" ref="mediaService" />
+		<property name="mediaContainerService" ref="mediaContainerService" />
+		<property name="typeService" ref="typeService" />
+		<property name="imageFormatMapping" ref="imageFormatMapping" />
 		<property name="variantAttributeMapping">
 			<map>
-				<entry key="ApparelStyleVariantProduct.style" value="styleSwatch"/>
+				<entry key="ApparelStyleVariantProduct.style" value="styleSwatch" />
 			</map>
 		</property>
 	</bean>
 
 
-	<alias name="acceleratorGenderConverter" alias="genderConverter"/> 
+	<alias name="acceleratorGenderConverter" alias="genderConverter" />
 	<bean id="acceleratorGenderConverter" parent="abstractPopulatingConverter">
-		<property name="targetClass" value="my.bookstore.facades.product.data.GenderData"/>
-			<property name="populators">
-				<list>
-					<ref bean="genderDataPopulator"/>
-				</list>
-			</property>
+		<property name="targetClass" value="my.bookstore.facades.product.data.GenderData" />
+		<property name="populators">
+			<list>
+				<ref bean="genderDataPopulator" />
+			</list>
+		</property>
 	</bean>
 
-	<alias name="defaultGenderDataPopulator" alias="genderDataPopulator"/>
-	<bean id="defaultGenderDataPopulator" class="my.bookstore.facades.populators.GenderDataPopulator" >
-		<property name="typeService" ref="typeService"/>
+	<alias name="defaultGenderDataPopulator" alias="genderDataPopulator" />
+	<bean id="defaultGenderDataPopulator" class="my.bookstore.facades.populators.GenderDataPopulator">
+		<property name="typeService" ref="typeService" />
 	</bean>
 
-	<bean id="apparelProductPopulator" class="my.bookstore.facades.populators.ApparelProductPopulator" >
-		<property name="genderConverter" ref="genderConverter"/>
+	<bean id="apparelProductPopulator" class="my.bookstore.facades.populators.ApparelProductPopulator">
+		<property name="genderConverter" ref="genderConverter" />
 	</bean>
-	
-	<bean id="bookstoreProductPopulator" class="my.bookstore.facades.populators.BookstoreProductPopulator" >
+
+	<bean id="bookstoreProductPopulator"
+		class="my.bookstore.facades.populators.BookstoreProductPopulator">
 	</bean>
 
 	<!-- TODO exercise 7.2 Uncomment and add your code -->
-	
+
 	<bean parent="modifyPopulatorList">
-		<property name="list" ref="productConverter"/>
-		<property name="add" ref="bookstoreProductPopulator"/>
+		<property name="list" ref="productConverter" />
+		<property name="add" ref="bookstoreProductPopulator" />
 	</bean>
 
 
 	<!-- accelerator Image Format Mappings -->
-	<alias name="acceleratorImageFormatMapping" alias="imageFormatMapping"/>
+	<alias name="acceleratorImageFormatMapping" alias="imageFormatMapping" />
 	<bean id="acceleratorImageFormatMapping" parent="defaultImageFormatMapping">
 		<property name="mapping">
 			<map>
-				<entry key="superZoom" value="1200Wx1200H"/>
-				<entry key="zoom" value="515Wx515H"/>
-				<entry key="store" value="365Wx246H"/>
-				<entry key="product" value="300Wx300H"/>
-				<entry key="thumbnail" value="96Wx96H"/>
-				<entry key="cartIcon" value="65Wx65H"/>
-				<entry key="styleSwatch" value="30Wx30H"/>
+				<entry key="superZoom" value="1200Wx1200H" />
+				<entry key="zoom" value="515Wx515H" />
+				<entry key="store" value="365Wx246H" />
+				<entry key="product" value="300Wx300H" />
+				<entry key="thumbnail" value="96Wx96H" />
+				<entry key="cartIcon" value="65Wx65H" />
+				<entry key="styleSwatch" value="30Wx30H" />
 			</map>
 		</property>
 	</bean>
@@ -134,61 +130,108 @@
 		</property>
 	</bean>
 
-	<bean id="customerEmailContext" class="my.bookstore.facades.process.email.context.CustomerEmailContext" parent="abstractEmailContext" scope="prototype" >
-		<property name="customerConverter" ref="customerConverter"/>
+	<bean id="customerEmailContext"
+		class="my.bookstore.facades.process.email.context.CustomerEmailContext"
+		parent="abstractEmailContext" scope="prototype">
+		<property name="customerConverter" ref="customerConverter" />
 	</bean>
 
-	<bean id="forgottenPasswordEmailContext" class="my.bookstore.facades.process.email.context.ForgottenPasswordEmailContext" parent="customerEmailContext" scope="prototype" >
-		<property name="customerConverter" ref="customerConverter"/>
+	<bean id="forgottenPasswordEmailContext"
+		class="my.bookstore.facades.process.email.context.ForgottenPasswordEmailContext"
+		parent="customerEmailContext" scope="prototype">
+		<property name="customerConverter" ref="customerConverter" />
+	</bean>
+
+	<bean id="orderNotificationEmailContext"
+		class="my.bookstore.facades.process.email.context.OrderNotificationEmailContext"
+		parent="abstractEmailContext" scope="prototype">
+		<property name="orderConverter" ref="orderConverter" />
+	</bean>
+
+	<bean id="deliverySentEmailContext"
+		class="my.bookstore.facades.process.email.context.DeliverySentEmailContext"
+		parent="abstractEmailContext" scope="prototype">
+		<property name="consignmentConverter" ref="consignmentConverter" />
+	</bean>
+
+	<bean id="readyForPickupEmailContext"
+		class="my.bookstore.facades.process.email.context.ReadyForPickupEmailContext"
+		parent="abstractEmailContext" scope="prototype">
+		<property name="consignmentConverter" ref="consignmentConverter" />
+	</bean>
+
+	<bean id="orderCancelledEmailContext"
+		class="my.bookstore.facades.process.email.context.OrderCancelledEmailContext"
+		parent="abstractEmailContext" scope="prototype">
+		<property name="orderConverter" ref="orderConverter" />
+	</bean>
+
+	<bean id="orderRefundEmailContext"
+		class="my.bookstore.facades.process.email.context.OrderRefundEmailContext"
+		parent="abstractEmailContext" scope="prototype">
+		<property name="orderConverter" ref="orderConverter" />
+	</bean>
+	<bean id="consignmentCollectionReminderEmailContext"
+		class="my.bookstore.facades.process.email.context.ConsignmentCollectionReminderEmailContext"
+		parent="abstractEmailContext" scope="prototype">
+		<property name="consignmentConverter" ref="consignmentConverter" />
+		<property name="formatFactory" ref="formatFactory" />
+		<property name="customerServiceUncollectedConsignmentStrategy"
+			ref="customerServiceUncollectedConsignmentStrategy" />
+		<property name="orderConverter" ref="orderConverter" />
+	</bean>
+
+	<bean id="orderPartiallyModifiedEmailContext"
+		class="my.bookstore.facades.process.email.context.OrderPartiallyModifiedEmailContext"
+		parent="abstractEmailContext" scope="prototype">
+		<property name="orderConverter" ref="orderConverter" />
+		<property name="orderEntryConverter" ref="orderEntryConverter" />
+		<property name="priceDataFactory" ref="priceDataFactory" />
+	</bean>
+
+	<bean id="orderPartiallyCanceledEmailContext"
+		class="my.bookstore.facades.process.email.context.OrderPartiallyCanceledEmailContext"
+		parent="orderPartiallyModifiedEmailContext" scope="prototype">
+	</bean>
+
+	<bean id="orderPartiallyRefundedEmailContext"
+		class="my.bookstore.facades.process.email.context.OrderPartiallyRefundedEmailContext"
+		parent="orderPartiallyModifiedEmailContext" scope="prototype">
+	</bean>
+
+	<bean id="notPickedUpConsignmentCanceledEmailContext"
+		class="my.bookstore.facades.process.email.context.NotPickedUpConsignmentCanceledEmailContext"
+		parent="abstractEmailContext" scope="prototype">
+		<property name="consignmentConverter" ref="consignmentConverter" />
+		<property name="priceDataFactory" ref="priceDataFactory" />
+	</bean>
+
+	<alias name="yacceleratorSearchPagePointOfServiceDistancePopulator"
+		alias="searchPagePointOfServiceDistancePopulator" />
+	<bean id="yacceleratorSearchPagePointOfServiceDistancePopulator"
+		class="my.bookstore.facades.storefinder.populators.SearchPagePointOfServiceDistancePopulator">
+		<property name="pointOfServiceDistanceConverter" ref="pointOfServiceDistanceConverter" />
+	</bean>
+
+	<bean id="genderData" class="my.bookstore.facades.product.data.GenderData"
+		scope="prototype" />
+
+
+	<bean id="mostRentedBookConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="my.bookstore.facades.product.data.MostRentedBookData" />
+		<property name="populators">
+			<list>
+				<ref bean="mostRentedBooksProductPopulator" />
+			</list>
+		</property>
 	</bean>
 	
-	<bean id="orderNotificationEmailContext" class="my.bookstore.facades.process.email.context.OrderNotificationEmailContext" parent="abstractEmailContext" scope="prototype" >
-		<property name="orderConverter" ref="orderConverter"/>
+	<bean id="defaultBookFacade" class="my.bookstore.facades.book.impl.DefaultBookFacade">
+		<property name='rentalService' ref='rentalService' />
+		<property name='mostRentedBookConverter' ref='mostRentedBookConverter' />
 	</bean>
-	
-	<bean id="deliverySentEmailContext" class="my.bookstore.facades.process.email.context.DeliverySentEmailContext" parent="abstractEmailContext" scope="prototype" >
-		<property name="consignmentConverter" ref="consignmentConverter"/>
+	<!-- aggiunto populator -->
+	<bean id="mostRentedBooksProductPopulator"
+		class="my.bookstore.facades.populators.MostRentedBooksProductPopulator">
 	</bean>
-	
-	<bean id="readyForPickupEmailContext" class="my.bookstore.facades.process.email.context.ReadyForPickupEmailContext" parent="abstractEmailContext" scope="prototype" >
-		<property name="consignmentConverter" ref="consignmentConverter"/>
-	</bean>
-	
-	<bean id="orderCancelledEmailContext" class="my.bookstore.facades.process.email.context.OrderCancelledEmailContext" parent="abstractEmailContext" scope="prototype" >
-		<property name="orderConverter" ref="orderConverter"/>
-	</bean>
-	
-	<bean id="orderRefundEmailContext" class="my.bookstore.facades.process.email.context.OrderRefundEmailContext" parent="abstractEmailContext" scope="prototype" >
-		<property name="orderConverter" ref="orderConverter"/>
-	</bean>
-	<bean id="consignmentCollectionReminderEmailContext" class="my.bookstore.facades.process.email.context.ConsignmentCollectionReminderEmailContext" parent="abstractEmailContext" scope="prototype">
-        <property name="consignmentConverter" ref="consignmentConverter"/>
-        <property name="formatFactory" ref="formatFactory"/>
-        <property name="customerServiceUncollectedConsignmentStrategy" ref="customerServiceUncollectedConsignmentStrategy" />
-        <property name="orderConverter" ref="orderConverter"/>
-    </bean>
-
-	<bean id="orderPartiallyModifiedEmailContext" class="my.bookstore.facades.process.email.context.OrderPartiallyModifiedEmailContext" parent="abstractEmailContext" scope="prototype" >
-		<property name="orderConverter" ref="orderConverter"/>
-		<property name="orderEntryConverter" ref="orderEntryConverter"/>
-		<property name="priceDataFactory" ref="priceDataFactory"/>		
-	</bean>
-
-	<bean id="orderPartiallyCanceledEmailContext" class="my.bookstore.facades.process.email.context.OrderPartiallyCanceledEmailContext" parent="orderPartiallyModifiedEmailContext" scope="prototype" >
-	</bean>
-
-	<bean id="orderPartiallyRefundedEmailContext" class="my.bookstore.facades.process.email.context.OrderPartiallyRefundedEmailContext" parent="orderPartiallyModifiedEmailContext" scope="prototype" >
-	</bean>
-
-	<bean id="notPickedUpConsignmentCanceledEmailContext" class="my.bookstore.facades.process.email.context.NotPickedUpConsignmentCanceledEmailContext" parent="abstractEmailContext" scope="prototype" >
-		<property name="consignmentConverter" ref="consignmentConverter"/>
-		<property name="priceDataFactory" ref="priceDataFactory"/>
-	</bean>
-
-	<alias name="yacceleratorSearchPagePointOfServiceDistancePopulator" alias="searchPagePointOfServiceDistancePopulator" />
-	<bean id="yacceleratorSearchPagePointOfServiceDistancePopulator" class="my.bookstore.facades.storefinder.populators.SearchPagePointOfServiceDistancePopulator" >
-		<property name="pointOfServiceDistanceConverter" ref="pointOfServiceDistanceConverter"/>
-	</bean>
-
-	<bean id="genderData" class="my.bookstore.facades.product.data.GenderData" scope="prototype"/>
 </beans>
