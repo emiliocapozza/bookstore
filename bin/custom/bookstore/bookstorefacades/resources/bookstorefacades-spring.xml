@@ -229,9 +229,31 @@
 	<bean id="defaultBookFacade" class="my.bookstore.facades.book.impl.DefaultBookFacade">
 		<property name='rentalService' ref='rentalService' />
 		<property name='mostRentedBookConverter' ref='mostRentedBookConverter' />
+		<property name='modelService' ref='modelService' />
+		<property name='bookReverseConverter' ref='bookReverseConverter' />
+		<property name='catalogVersionService' ref='catalogVersionService'/>
 	</bean>
-	<!-- aggiunto populator -->
+	
+	<bean id="catalogVersionService"
+		class="de.hybris.platform.catalog.CatalogVersionService">
+	</bean>
+	
 	<bean id="mostRentedBooksProductPopulator"
 		class="my.bookstore.facades.populators.MostRentedBooksProductPopulator">
 	</bean>
+	
+	<bean id="bookReverseConverter" parent="abstractPopulatingConverter">
+		<property name="targetClass" value="my.bookstore.core.model.BookModel" />
+		<property name="populators">
+			<list>
+				<ref bean="bookstoreProductReversePopulator" />
+			</list>
+		</property>
+	</bean>
+	
+	<bean id="bookstoreProductReversePopulator"
+		class="my.bookstore.facades.populators.BookstoreProductReversePopulator">
+		<property name='catalogVersionService' ref='catalogVersionService'/>
+	</bean>
+	
 </beans>

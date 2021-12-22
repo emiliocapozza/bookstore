@@ -29,6 +29,8 @@
 		extends="de.hybris.platform.commercefacades.product.data.ProductData">
 		<property name="edition" type="String"></property>
 		<property name="publication" type="Integer"></property>
+		<property name="codice10" type="String"/>
+		<property name="codice13" type="String"/>
 	</bean>
 	
 	<!-- aggiunta nuovo bean per prova -->
